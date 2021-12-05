@@ -1,0 +1,22 @@
+{
+  "name": "pandemic-simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SThompsonChicago/pandemic-simulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SThompsonChicago/pandemic-simulator/issues"
+  },
+  "homepage": "https://github.com/SThompsonChicago/pandemic-simulator#readme",
+  "dependencies": {
+    "mathjs": "^10.0.0"
+  }
+}
