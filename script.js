@@ -1,3 +1,7 @@
+const x = 0;
+
+document.getElementById(`item${x}`).style.backgroundColor = "red";
+
 // Include MathJS library
 const math = require('mathjs');
 
@@ -46,6 +50,7 @@ initial.subset(math.index(0, 0), 1);
 
 // Create an N x periods matrix to hold solution to ODE system
 u = math.zeros(N, periods);
+
 
 // Define a one-to-one correspondence between an index k and nodes [i, j] in the network
 function fun(k) {
@@ -133,6 +138,7 @@ euler();
 
 showResults();
 
+x = 0;
 
 
 
