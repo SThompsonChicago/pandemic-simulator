@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Transition, animated } from "react-spring";
 import Simulate from "./components/Simulate";
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 import "./styles.css";
 
@@ -13,6 +14,7 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Simulate />
+        <Footer />
       </div>
     );
   }

@@ -18,7 +18,7 @@ const alpha = 0.5;
 const beta = 0.1;
 
 // Number of rows in the grid
-const n = 5;
+const n = 4;
 
 // Number of nodes in the transportation network
 const N = n * n;
@@ -177,7 +177,16 @@ export default function Simulate() {
   }
 
   return (
-      <div>
+      <div className='box'>
+        <p className="title is-4">
+                            Current State
+                        </p>
+                        <p>
+                            The grid below shows the spread of an infection across space after an initial outbreak. Red indicates a 100% infection rate, and blue indicates a 0% infection rate. See below for more information about the model. 
+                        </p>
+                        
+                   <div className="box">   
+
             <Spring
               from={{ number: 0 }}
               to={{ number: T - 1 }}
@@ -222,6 +231,15 @@ export default function Simulate() {
                 </div>
               )}
             </Spring>
+            </div>  
+            <p className="title is-4">
+                            Population Density
+                        </p>
+                        <p>
+                            The grid below shows the population density at each location. Darker colors indicate higher population densities (black squares have the population density of New York City, while a white square would indicate zero population). In the current implementation of this model, the population distribution function is selected at random and is reset each time the simulation is run.
+                        </p>
+                        
+                   <div className="box">   
             <HeatMapGrid
         data={data}
         xLabels={xLabels}
@@ -249,6 +267,32 @@ export default function Simulate() {
         // yLabelsPos="right"
         // square
       />
+      </div>
+      <p className="title is-4">
+                            About the Model
+                        </p>
+                        <p>
+
+                        </p>
+                        <p>
+                            How does a disease like COVID-19 spread? To answer this question, we first need to understand how people move from place to place. 
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                            In the past, mathematical epidemiologists have tried to model human mobility using the diffusion model from physics. The diffusion model essentially describes a particle that moves by taking large numbers of small random steps. However, it has been known for a long time that this model does not give a realistic way to model the spread of pandemics, because the way people move is more complicated. 
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                            To develop a better model of human mobility, Dirk Brockmann (then at Northwestern University) and colleagues <a href="http://rocs.northwestern.edu/research/wgstory.html">analyzed data from a variety of sources,</a> including the circulation of dollar bills across the US. This website is based on an early mathematical model they created which captures these insights. Their incorporates the idea that human mobility includes both short trips (i.e., a few miles or less) along with occasional long-distance trips (such as plane trips between continents). It also assumes that locations with higher population density tend to be visited more often than low-population areas. Their analysis of money circulation and other data sources allowed them to quantify these ideas precisely and create the <a href="https://ul.qucosa.de/api/qucosa%3A13918/attachment/ATT-0/">system of differential equations upon which this website is based</a>. Since the model was first created, <a href="https://www.aimsciences.org/article/doi/10.3934/eect.2013.2.173">its mathematical properties have been further analyzed</a> and <a href="https://rocs.hu-berlin.de">more sophisticated models</a> have been created as well. 
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                            An important consequence of the model, which can be seen in the simulation above, is that diseases tend to spread to high population areas relatively soon after an initial outbreak, while low-popuation areas may see the disease spread more slowly, even if they are close to the initial outbreak. This website offers a simple way to visualize this process. As epidemiological models grow more sophisticated, one can hope that this will help to control the spread of future disease outbreaks and offer precise forecasts that can help to guide policy. 
+
+                        </p>
           </div>
   );
 }
