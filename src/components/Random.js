@@ -4,7 +4,7 @@ import { HeatMapGrid } from "react-grid-heatmap";
 
 const math = require('mathjs');
 
-const n = 20;
+const n = 10;
 const T = 10;
 
 const a = math.zeros(n, n, T+1);
@@ -27,7 +27,7 @@ const data = new Array(yLabels.length)
       .fill(0)
   );
 
-export default function Counter() {
+export default function Simulate() {
   return (
       <div>
             <Spring

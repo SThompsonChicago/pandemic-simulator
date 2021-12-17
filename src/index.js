@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Transition, animated } from "react-spring";
-import Counter from "./components/Counter";
+import Simulate from "./components/Simulate";
 import Header from './components/Header';
 
 import "./styles.css";
@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <Counter />
+        <Simulate />
       </div>
     );
   }

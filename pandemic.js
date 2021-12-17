@@ -1,7 +1,3 @@
-const x = 0;
-
-document.getElementById(`item${x}`).style.backgroundColor = "red";
-
 // Include MathJS library
 const math = require('mathjs');
 
@@ -9,31 +5,37 @@ const math = require('mathjs');
 const mu = 0.6;
 
 // Transmission rate
-const alpha = 0.2;
+const alpha = 0.4;
 
 // Recovery rate
-const beta = 0.1;
+const beta = 0.2;
 
 // Number of rows in the grid
-const n = 4;
+const n = 10;
 
 // Number of nodes in the transportation network
 const N = n * n;
 
 // Step size for ODE solver
-const h = 0.001;
+const h = 0.01;
 
 // Number of days for the simulation
 const days = 0.1;
 
 // Number of time intervals
-const periods = 200000;
+const periods = 5000;
 
 // The "diffusion" coefficient
-const D = 0.0001;
+const D = 0.01;
 
 // Population distribution
-const c = math.matrix([[300, 50, 50, 400], [300, 10, 10, 200], [50, 10, 10, 400], [100, 10, 50, 50]]);
+//const c = math.matrix([[300, 50, 50, 400], [300, 10, 10, 200], [50, 10, 10, 400], [100, 10, 50, 50]]);
+const c = math.ones(n, n);
+
+for (let i = 0; i < n; i++) {
+    c.subset(math.index(i, 0), 10);
+    c.subset(math.index(i, 9), 10);
+}
 
 // Create an N x N matrix with all zeros
 const a = math.matrix();
@@ -136,9 +138,11 @@ math.transpose(m);
 
 euler();
 
-showResults();
+for (let t = 0; t < periods; t += 500){
+    console.log(math.column(u, t));
+}
 
-x = 0;
+
 
 
 
