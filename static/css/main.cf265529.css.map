@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.cf265529.css","mappings":"AAAA,EACE,QAAS,CACT,SACF,CAEA,KACE,sCAAyC,CACzC,eACF,CAEA,GACE,cACF","sources":["styles.css"],"sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n  line-height: 1.4;\n}\n\nh1 {\n  font-size: 3rem;\n}"],"names":[],"sourceRoot":""}

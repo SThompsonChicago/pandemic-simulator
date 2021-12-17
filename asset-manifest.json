@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pandemic-simulator/static/css/main.cf265529.css",
+    "main.js": "/pandemic-simulator/static/js/main.883d67ae.js",
+    "index.html": "/pandemic-simulator/index.html",
+    "main.cf265529.css.map": "/pandemic-simulator/static/css/main.cf265529.css.map",
+    "main.883d67ae.js.map": "/pandemic-simulator/static/js/main.883d67ae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf265529.css",
+    "static/js/main.883d67ae.js"
+  ]
+}
