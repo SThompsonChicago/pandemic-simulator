@@ -12,13 +12,13 @@ const T = 50;
 const mu = 0.6;
 
 // Transmission rate
-const alpha = 0.8;
+const alpha = 0.5;
 
 // Recovery rate
 const beta = 0.1;
 
 // Number of rows in the grid
-const n = 10;
+const n = 5;
 
 // Number of nodes in the transportation network
 const N = n * n;
@@ -27,14 +27,24 @@ const N = n * n;
 const h = 0.01;
 
 // Number of time intervals
-const periods = 5000;
+const periods = 12000;
 
 // The "diffusion" coefficient
-const D = 0.01;
+const D = 0.0001;
 
 // Population distribution
 //const c = math.matrix([[300, 50, 50, 400], [300, 10, 10, 200], [50, 10, 10, 400], [100, 10, 50, 50]]);
 let c = math.ones(n, n);
+
+// c.subset(math.index(0,0), 0.1);
+// c.subset(math.index(n - 1,0), 0.1);
+// c.subset(math.index(0, n - 1), 0.1);
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    c.subset(math.index(i,j), Math.random());
+  }
+}
 
 // Create an N x N matrix with all zeros
 let a = math.matrix();
@@ -76,7 +86,7 @@ function createMatrix() {
             if(i !== j){
             // Calculate power of distance between nodes
             let d = Math.pow(dist(i,j), 2 + mu);
-            let node1 = fun(j);
+            let node1 = fun(i);
             // Create value for appropriate element of a
             let val = c.subset(math.index(node1[0], node1[1]))/d;
     
@@ -84,7 +94,8 @@ function createMatrix() {
             a.subset(math.index(i,j), val);
 
             // Subtract value from diagonal element
-            let val1 = a.subset(math.index(i,i)) - val;
+            let node2 = fun(j);
+            let val1 = a.subset(math.index(i,i)) - c.subset(math.index(node2[0], node2[1]))/d;
             a.subset(math.index(i,i), val1);
             }
         }
@@ -154,7 +165,7 @@ export default function Simulate() {
 
   createMatrix();
 
-  math.transpose(m);    
+  // math.transpose(m);    
 
   let ans = euler();
 
@@ -170,7 +181,7 @@ export default function Simulate() {
             <Spring
               from={{ number: 0 }}
               to={{ number: T - 1 }}
-              config={{ duration: (T - 1)*200 }}
+              config={{ duration: (T - 1)*500 }}
             >
               {props => (
                 <div style={props}>
@@ -211,6 +222,33 @@ export default function Simulate() {
                 </div>
               )}
             </Spring>
+            <HeatMapGrid
+        data={data}
+        xLabels={xLabels}
+        yLabels={yLabels}
+        // Reder cell with tooltip
+        cellRender={(x, y, value) => (
+          <div title={`Pos(${x}, ${y}) = ${value}`}></div>
+        )}
+        xLabelsStyle={() => ({
+          fontSize: ".65rem",
+          textTransform: "uppercase",
+          color: "#777"
+        })}
+        yLabelsStyle={() => ({
+          fontSize: ".65rem",
+          textTransform: "uppercase",
+          color: "#777"
+        })}
+        cellStyle={(_x, _y, ratio) => ({
+          background: `rgb(${(1 - c.subset(math.index(_x, _y)))*255 }, ${(1 - c.subset(math.index(_x, _y)))*255}, ${(1 - c.subset(math.index(_x, _y)))*255 })`
+        })}
+        cellHeight="2rem"
+        xLabelsPos="bottom"
+        onClick={(x, y) => null}
+        // yLabelsPos="right"
+        // square
+      />
           </div>
   );
 }
