@@ -1,14 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import Container from './components/Container';
+import React, { useEffect } from 'react';
+import Home from './components/Home';
 
 function App() {
 
 
     return (
         <div>
-
-            <Container/>
-
+            <Home />
         </div>
     )
 }

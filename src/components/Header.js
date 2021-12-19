@@ -27,17 +27,17 @@ function Header({currentPage, handlePageChange }) {
       </div>
       <div className="media-content">
                 <p className="title">
-                    Pandemic Simulator
+                    Epidemic Simulator
                 </p>
                 <p className="subtitle">
-                    A simplified model showing the spatial spread of diseases
+                    A tool for visualizing spatial disease dynamics
                 </p>
 </div>
                 </article>
                 </div>
         </section>
-        <div className="hero-foot">
-            <header className="navbar" style={styles.right}>
+      {/*  <div className="hero-foot">
+             <header className="navbar" style={styles.right}>
 
 <a className="button is-black"
   style={styles.space}
@@ -54,8 +54,8 @@ function Header({currentPage, handlePageChange }) {
       <span>Stop</span>
     </a>
 
-</header>
-  </div>
+</header> 
+  </div>*/}
         </div>
     );
 }
