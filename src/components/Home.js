@@ -3,8 +3,6 @@ import { HeatMapGrid } from 'react-grid-heatmap';
 import Header from './Header';
 import Footer from './Footer';
 
-import Slider, { createSliderWithTooltip } from 'rc-slider';
-
 const math = require('mathjs');
 
 const styles = {
@@ -35,25 +33,47 @@ const h = 0.01;
 const D = 0.005;
 
 // Number of time intervals
-const periods = 20;
+const periods = 7;
 
 let a = math.zeros(N, N);
 let m = math.zeros(N, N);
 
-let c = new Array(n);
-for (let i = 0; i < n; i++){
-    c[i] = new Array(N).fill(0);
-}
+// let c = new Array(n);
+// for (let i = 0; i < n; i++){
+//     c[i] = new Array(n).fill(0);
+// }
 
-for (let i = 0; i < n; i++) {
-  for (let j = 0; j < n; j++) {
-    c[i][j] = (j !== 0 && j !== n - 1) * 0.3 * Math.random() + (0.5 + 0.5 * Math.random()) * (j === 0 || j === n - 1);
-    let rando = Math.random();
-    let rando2 = Math.random();
-    if(rando > 0.45 && rando2 > 0.45)
-    c[i][j] = 0.4 * (rando + rando2);
-  }
-}
+
+// for (let i = 0; i < n; i++) {
+//   for (let j = 0; j < n; j++) {
+//     c[i][j] = (j !== 0 && j !== n - 1) * 0.3 * Math.random() + (0.5 + 0.5 * Math.random()) * (j === 0 || j === n - 1);
+//     let rando = Math.random();
+//     let rando2 = Math.random();
+//     if(rando > 0.45 && rando2 > 0.45)
+//     c[i][j] = 0.4 * (rando + rando2);
+//   }
+// }
+
+let c = [[0.5755951483871738, 0.049671816036299, 0.13992873258806304, 0.08764762633505141, 0.5814739892431717, 0.1780979952155575, 0.29058792293984753, 0.5653063958923548, 0.2996236182681453, 0.025299908300829222, 0.2966463154175256, 0.2812246362642324, 0.08863444873703631, 0.3945360346138399, 0.14711649999329732, 0.12966644124191348, 0.231638995073393, 0.16832621579711932, 0.5414569718132451, 0.9444525515132772],
+[0.6930511302809681, 0.7028044999703095, 0.4066808150821862, 0.1876285084379122, 0.06753383635939111, 0.19619869974545773, 0.2763495452685704, 0.28736991416916985, 0.6744472911226111, 0.1326435412845072, 0.01614603183941543, 0.22317963184492243, 0.1256750823577049, 0.6409222788445349, 0.5334025995115509, 0.5465484082659168, 0.11480685130681309, 0.49171040211784167, 0.09080763405974754, 0.6353578089211926],
+[0.9173551880697326, 0.23356714684797247, 0.6419158869516552, 0.04386833111465405, 0.5447727193371974, 0.11151267406814515, 0.038581294756218985, 0.2676215555011712, 0.03206691268710753, 0.08159593218397172, 0.12504657869015098, 0.043088003733687395, 0.22013635813932456, 0.12809043998761308, 0.4685461890177982, 0.23434489054890906, 0.6605092355364194, 0.2605306362095185, 0.07712472468929743, 0.9329009845156788],
+[0.6447318252370816, 0.004988395871593476, 0.5755880814030823, 0.10533458809527482, 0.043017552800399025, 0.2865950396564422, 0.5325560360556619, 0.25910695081663143, 0.18172849935201948, 0.1810800783811089, 0.0622914690493783, 0.24968967209867357, 0.2164169178357556, 0.12328698660049342, 0.261655793233325, 0.5579796946182699, 0.007169987956742885, 0.5211109567960345, 0.4111123074040716, 0.7881703038359599],
+[0.5007562747182794, 0.18099049830813022, 0.22025714434353721, 0.15075409610533982, 0.10232944669576269, 0.1946508143741154, 0.1980280427473419, 0.5085418472977395, 0.27348528557866963, 0.02009366433405324, 0.09780334630718869, 0.19040473558644172, 0.1388961818567614, 0.0325572971870056, 0.18572964535566042, 0.14244863223372073, 0.5552356462525725, 0.6613947066664703, 0.24581657301820042, 0.8260297486363142],
+[0.7785791061945708, 0.0924234884925728, 0.07521226368936147, 0.17112055798805684, 0.14534418500738103, 0.0787965797660513, 0.08530392024757709, 0.44528905678471137, 0.5626496385877773, 0.05375313080395876, 0.2191037014009253, 0.004768020480657297, 0.11994733808917035, 0.12007882546560075, 0.6804611257234937, 0.5852834455112874, 0.5083510600497632, 0.6895728690780135, 0.29882046657177636, 0.5112170069259548],
+[0.5669431609424768, 0.24334744884105886, 0.08836823086987533, 0.029602898272326605, 0.6278653714773683, 0.21866511785866435, 0.0674646667300648, 0.14414620417529003, 0.03542367381983218, 0.5386046821725919, 0.09520419866594505, 0.6050617776873076, 0.02762118764305728, 0.005093327038947514, 0.5830594576072878, 0.24324527183856925, 0.1731148184922501, 0.6442118177161569, 0.2213181362350142, 0.5980477383668551],
+[0.7940522970599749, 0.11906414211600026, 0.24007465054367175, 0.12835544012984512, 0.36989677675421045, 0.4192110580182411, 0.11538164157465569, 0.46490520045015415, 0.47843838449180015, 0.5650313569971817, 0.2748743717885252, 0.01676938928516698, 0.07149253468314895, 0.4341114849989647, 0.10124240216150661, 0.2844782052815473, 0.5909757205618791, 0.19213234572146556, 0.5960198743223569, 0.5249377896988779],
+[0.5243208906936513, 0.6018483000365772, 0.6973940276327423, 0.5596411883386021, 0.09792020508142814, 0.2293538710010975, 0.07251871194571464, 0.023051520959537972, 0.2608891225761886, 0.23587108126779902, 0.029326584029346292, 0.7628229980319039, 0.06140410209622253, 0.14574206750894558, 0.6389039941857124, 0.6854741627078491, 0.07335437756018819, 0.2306505167497198, 0.013857361041192196, 0.5176922106302477],
+[0.9899701794755245, 0.004361913053200972, 0.6518619722738116, 0.6906705952118504, 0.4210036283939628, 0.02007472573357414, 0.12360416417460118, 0.023035375998951002, 0.01433260751260046, 0.4848815629024874, 0.18996057505728325, 0.6470257903798543, 0.20466215730599027, 0.5615068479456514, 0.23463568621775438, 0.15853396295340283, 0.7065268017782175, 0.12740397478112012, 0.08252148627416844, 0.6798597013097699],
+[0.5517039879941629, 0.44179839603324433, 0.2933509445877195, 0.6042684194781147, 0.2028760615239121, 0.09109990864859838, 0.168204450566013, 0.29625944775565727, 0.022698312567321376, 0.2913039793008594, 0.05687408383188072, 0.019004318257542584, 0.053622137866919585, 0.6046514915125925, 0.03693521360217351, 0.6823407162868894, 0.2491801343938278, 0.21134974151777622, 0.6837123249583095, 0.7334252138775021],
+[0.5078005511180844, 0.16082036874785285, 0.0765058501565299, 0.46543114061750857, 0.03489282467851684, 0.5198716029163198, 0.17276184063278288, 0.27950145775999374, 0.10880237574205949, 0.2151996827685439, 0.20395057434927413, 0.0845290484631056, 0.02731082076975102, 0.44455445286237005, 0.1279727140411491, 0.07550714937283202, 0.6659348975957182, 0.18330125514982867, 0.1739894343355345, 0.9922695341521824],
+[0.5555708062118061, 0.08406486278155283, 0.0121130715242198, 0.5934009680530805, 0.03000066467748681, 0.0486618271964897, 0.05146464486839617, 0.0905209351152387, 0.5575230849880197, 0.04773007736694752, 0.23774294441595079, 0.18649441563984906, 0.232530730849754, 0.006297539709403921, 0.2815771692309447, 0.29008949127038297, 0.004372703108489228, 0.11193789176784594, 0.26398338538111427, 0.5404946825128695],
+[0.8791811913853954, 0.5485160534623995, 0.2539931958885614, 0.2893846717616578, 0.053015818612795605, 0.048793029338665604, 0.0836362396723105, 0.16341075428108578, 0.052552473808185, 0.49652901742610234, 0.07597215792794405, 0.5130065974032995, 0.20234609561590852, 0.15850923235676115, 0.24733626717306145, 0.011762868995449649, 0.22182048479743136, 0.06527000193264944, 0.1555193949905536, 0.6544604203502459],
+[0.5503703078745574, 0.2839389925504668, 0.0786956415365412, 0.18316942110082116, 0.0779283787297201, 0.10617953860454606, 0.16862435432743864, 0.16082479029893593, 0.19022592711492117, 0.21874871412018126, 0.4483399462925812, 0.2515868087650597, 0.6262247635151705, 0.26317854723726836, 0.046899094885024195, 0.11781133720637771, 0.18926449667837966, 0.08804445904854703, 0.5355716990913221, 0.7396641358428181],
+[0.7686658074994364, 0.027000625877078122, 0.1101214510817235, 0.09688838683287657, 0.01176108920391432, 0.1255916685678358, 0.0896695258833243, 0.11996092753470042, 0.5634750834716747, 0.14140735105032168, 0.0794400431202364, 0.008995010483524423, 0.09568588859576112, 0.020662577818601233, 0.12208872898220285, 0.13604427033483454, 0.41167140594015267, 0.2090143298971172, 0.19639853053867465, 0.9414559476086743],
+[0.5300207410242516, 0.6294428971786318, 0.05372108450406676, 0.2398694419752953, 0.030253179972733135, 0.22823460157396536, 0.018988157940850958, 0.16508411117000044, 0.20462563851835294, 0.018056584596161062, 0.5341264305124264, 0.012213945537277615, 0.734494872869723, 0.2582135788676226, 0.05391670682051901, 0.09997757572153607, 0.2291185550328448, 0.6431932109682057, 0.19974548892996238, 0.8459973583467509],
+[0.8031069362846639, 0.04967015357197633, 0.047793272350209935, 0.19787268691533313, 0.21664430889874545, 0.6093977773902889, 0.19627278631492187, 0.023289717030675925, 0.11477865079956184, 0.5145924988939794, 0.005646131085372774, 0.05234256016095233, 0.09818672122765681, 0.49920942120135914, 0.48473335349068813, 0.37889154446672874, 0.48341214756770595, 0.5490905988187104, 0.23885212828255287, 0.7756770008587125],
+[0.8489873080326793, 0.189796593920934, 0.03268685364241173, 0.06535372126777805, 0.2987225928652199, 0.0965633617148609, 0.2509607227719607, 0.02863576624106927, 0.0034511689768313533, 0.5241424381082819, 0.42174519054634696, 0.1298906764291743, 0.0373411959008535, 0.05528399249876657, 0.22800801118139238, 0.6967350781546318, 0.1957866879758246, 0.668062122798861, 0.2803166176284209, 0.6999502124926856],
+[0.7482569947741431, 0.2529971769886013, 0.6977383102630518, 0.066877843087, 0.2390909424802069, 0.29519097947553874, 0.09364111713125345, 0.027786537315214965, 0.23931673173604906, 0.051073927684144094, 0.17440332676586248, 0.2652028115730563, 0.2774735584392421, 0.11914520636338974, 0.036409115397076676, 0.12757036496649277, 0.10073080788660305, 0.10592639975611663, 0.4380443948800962, 0.7881570920854284]];
 
 let totalPop = 0;
 
@@ -94,26 +114,7 @@ let u = math.zeros(N, periods);
 //   }
 // }
 
-// const c = math.matrix([[0.44403420768804525, 0.5468756637401027, 0.01023590527368845, 0.7343943354787394, 0.9578643197479721, 0.7375253392266197, 0.8418495200962366, 0.886871043717806, 0.9382941446940112, 0.5652031318984301, 0.5548633255795692, 0.5623657187927513, 0.7464465791920911, 0.22606850101070153, 0.5918037971869703, 0.19544024595208498, 0.9917003328017371, 0.09077547156839172, 0.17404350932967727, 0.9207863584372851],
-//   [0.03626940329225237, 0.5083184693086018, 0.5456608537823568, 0.06608916515411134, 0.8869600856356457, 0.8564391326418199, 0.10959281224872619, 0.7444559157470683, 0.34068121898399206, 0.2574771234216815, 0.42292612539323726, 0.9430467918381482, 0.5505997025669966, 0.20622244911892462, 0.4949857921053191, 0.8197646865767256, 0.7661034369165798, 0.45063738833358946, 0.24934441251196438, 0.32201112755596495],
-//   [0.6091544582957769, 0.14699374709719049, 0.9013694937176782, 0.4601910964960576, 0.14103182735166198, 0.9485641284855832, 0.8215290328960341, 0.6738074481910854, 0.9857832800724617, 0.0675849027174471, 0.0692285283766334, 0.3595253662134732, 0.3893159842614282, 0.37629036603791777, 0.2249894414095439, 0.8253391434067878, 0.7342741867334197, 0.13220671257375693, 0.16375752715502956, 0.8750976213235488],
-//   [0.7930045141408362, 0.06566706103994635, 0.8406764329323091, 0.10288689922836691, 0.6960143443680089, 0.5368803893427345, 0.1981248901671302, 0.3652728676287782, 0.10813694660509099, 0.35816790052307135, 0.2555669552872273, 0.28752736154885294, 0.041621924523573606, 0.3408403492024452, 0.5348163643202168, 0.8423346318517728, 0.49812735654983276, 0.2916682821467702, 0.17260016175009119, 0.8534103319914959],
-//   [0.9454710503860067, 0.5654688741523728, 0.46019173740913333, 0.574608500152473, 0.6280197231449094, 0.3595403953634351, 0.8493728813478925, 0.9626111328102167, 0.7979850635556918, 0.9546913869047244, 0.8659878846363378, 0.9755915980078671, 0.4007076589835117, 0.6843927131859275, 0.6915478076147721, 0.42418521021763844, 0.2351204015696382, 0.041354579009988734, 0.9544189884076788, 0.6119097929415223],
-//   [0.3784523047809716, 0.504187523078699, 0.7753709738879626, 0.7658733741786548, 0.5096167922471244, 0.18073909363500995, 0.9440050560966957, 0.330621068972055, 0.019324854940226066, 0.03467146712136171, 0.19993093574323595, 0.35135273739578476, 0.9613115325416499, 0.6756148352861557, 0.7727143313917206, 0.8670446522648159, 0.7155497889188009, 0.6615659908942528, 0.39933913586946246, 0.5971074512837791],
-//   [0.09877060711442276, 0.9180942078191341, 0.6312494668397237, 0.3892075015220886, 0.3982537574067828, 0.14310552317053582, 0.5157260621633251, 0.1826098626986168, 0.41093155906765055, 0.579807022534303, 0.18854079260335643, 0.6177634271150674, 0.6719555865940163, 0.20734989978527985, 0.7527008474005912, 0.5802767729194087, 0.16208499542387278, 0.7647642484892727, 0.15692612649180337, 0.9345839045332165],
-//   [0.5552457912278794, 0.30840327571745485, 0.045497392978668394, 0.19668179334199132, 0.15803397518355422, 0.4557515897349236, 0.5512774968381333, 0.018077372188460394, 0.045132220747743146, 0.5916944259446406, 0.7197028569839583, 0.8477528049870606, 0.6828820481483331, 0.7362862581693586, 0.8566989647161796, 0.26994751771871006, 0.35148228189818553, 0.5581378424611267, 0.43239113393410245, 0.23385534973694044],
-//   [0.9124718592414993, 0.44919307562674193, 0.5781830621018822, 0.01180361489312376, 0.7345713577430217, 0.4173459810520057, 0.9909730159778494, 0.7269257518651255, 0.05931380788517071, 0.7450580650557033, 0.07423623025975079, 0.5251043046890789, 0.2859740091257963, 0.29095846654045476, 0.6994680987436395, 0.4127512652312064, 0.34866064972442246, 0.4478446553951638, 0.9303322759487136, 0.7522156667524327],
-//   [0.6021642333872506, 0.07318810002836229, 0.6005965552102279, 0.7238493199451119, 0.6488953263334674, 0.3377364022414502, 0.17886398622358968, 0.9495869319216574, 0.22519444276280032, 0.2780625287287575, 0.2893661505560623, 0.9655059548524465, 0.10267956901572317, 0.16724333525476354, 0.12695003342847588, 0.05948627255158789, 0.3568782154943291, 0.796959471138535, 0.5404665605266847, 0.3267738921546919],
-//   [0.8595017222457026, 0.9599235626282137, 0.00701536633656219, 0.8381852074043852, 0.1256983240403171, 0.37631888264259183, 0.7696154739206371, 0.2614321595730149, 0.05286556965512679, 0.5426048960319951, 0.6914022227852099, 0.15506257007229585, 0.16672965785814498, 0.9316321478173819, 0.12793432365575885, 0.015003419204907331, 0.2095687495044838, 0.39071980978612064, 0.8989137074666413, 0.44774941070160246],
-//   [0.9570758921014193, 0.22413334203490987, 0.7216936892994945, 0.08933038613437994, 0.3675737306614988, 0.009950791622160837, 0.7203552597137626, 0.8136983414511065, 0.02475958244971732, 0.0005987688191073648, 0.32961265093926007, 0.8017630097569823, 0.722693935100533, 0.3210739076384015, 0.3365837024060949, 0.19505288729352266, 0.9879573114127693, 0.23515974786859317, 0.35898072796386415, 0.6693141220846193],
-//   [0.9291565555091585, 0.02373877195079177, 0.32383843938063817, 0.15485649710202742, 0.07985071893675388, 0.473648702064845, 0.8648001776667775, 0.9836978167028108, 0.7856861276427436, 0.9898348821242258, 0.9669732767160741, 0.13824345616324507, 0.637345608209424, 0.5800836183096052, 0.44756964092584695, 0.7028241557992139, 0.06526313060533839, 0.715249786276335, 0.7118008218663925, 0.5696092326904929],
-//   [0.49930242832333516, 0.16145298226761184, 0.6093836773762424, 0.25750183535197, 0.835347417833024, 0.38622247750348193, 0.5164954900964887, 0.394736232198581, 0.3259290094793421, 0.30824464214037817, 0.6093376308645606, 0.49231215338808454, 0.86235645097384, 0.40105518902524273, 0.48139688434531047, 0.992245303271553, 0.9721245159789624, 0.4102471395655747, 0.6757539795483798, 0.954499148592149],
-//   [0.10932603634295601, 0.644845401260949, 0.03152426657102669, 0.29266040788854153, 0.656918209652233, 0.344336954363871, 0.6453446546666688, 0.790725495432945, 0.40655112606004673, 0.36907136254811745, 0.35513811395962613, 0.2912457353053801, 0.231704851241902, 0.8579250175950468, 0.8863579044588141, 0.881122690090695, 0.7167635802266783, 0.32848858972181105, 0.07265245260200826, 0.3848332334505422],
-//   [0.0673256372707518, 0.36646678224646956, 0.7211700624070194, 0.2860047428288537, 0.10546277991467168, 0.14344912368913398, 0.1784082743883615, 0.3001925078211851, 0.03146689081636689, 0.13257043303631355, 0.6128714927965966, 0.43481490866792183, 0.3788396806029948, 0.1450444658003185, 0.7839819851381586, 0.8638187873619203, 0.25422577025309434, 0.9646647473632588, 0.5908622893661, 0.9163833312607996],
-//   [0.45036733828898146, 0.7003255088850129, 0.8067948885904064, 0.2597869929228187, 0.29612657789732544, 0.6092088905762436, 0.7448121824263885, 0.8010766395788569, 0.8924504033216307, 0.24528981358115476, 0.11094841680370737, 0.23331047272654892, 0.7197038679800114, 0.1375622305562958, 0.13683828341592985, 0.908352244982495, 0.060074897918446, 0.36933692982071054, 0.7778572546308395, 0.2578977177193098],
-//   [0.7508986318108879, 0.321130730231173, 0.7627098938970007, 0.5741304175736952, 0.11166242378933156, 0.7531485923714256, 0.9832124895911982, 0.4558028826280587, 0.21763699349957277, 0.10567740727490005, 0.7322930804461627, 0.8197120957244508, 0.5580719581099727, 0.5786034814557233, 0.2508159107381094, 0.2956783322658374, 0.5250503485683371, 0.05619892651756264, 0.26441452453276093, 0.5798562586477753],
-//   [0.41152617269917324, 0.25446912462245463, 0.6542927692690568, 0.6665478111131902, 0.7364054552022887, 0.489565780131358, 0.8780337726194389, 0.7152695853898918, 0.18106168207145235, 0.31580624431267945, 0.28558137621667146, 0.27291886327566095, 0.06885231910125778, 0.29140330799974734, 0.20992069622360043, 0.0646461768350095, 0.6727352780463429, 0.8972834763131277, 0.6332975530891825, 0.3544463054700673]
-// ]);
+
 
 
 const xLabels = new Array(n).fill(0).map((_, i) => `${i+1}`);
@@ -134,8 +135,8 @@ const initialState = {
   population: c,
   message: 'Current state (click the "Run" button above to start the simulation)',
   percentSick: 100*c[0][0]/totalPop,
-  alpha: 0.5,
-  beta: 0.1
+  alpha: 2,
+  beta: 0.4
 }
 
 export default function Home() {
@@ -161,7 +162,7 @@ export default function Home() {
     if (!state.isRunning) {
       return;
     }
-    idRef.current = setInterval(() => dispatch({ type: "iterate" }), 300);
+    idRef.current = setInterval(() => dispatch({ type: "iterate" }), 250);
     return () => {
       clearInterval(idRef.current);
       idRef.current = 0;
@@ -212,7 +213,7 @@ export default function Home() {
                             What is this and how does it work?
                         </p>
                         <p>
-                            This app provides a way to visualize how different factors, like the distribution of population across space, and the disease transmission rate, can affect the way an epidemic spreads. The "Infection Distribution" chart below shows the percentage of people in each location who are sick (the redder the square, the more sick people). The other grid shows how population density varies across space (darker squares represent more highly populated areas). Since there is more traffic through high-population areas, infections tend to spread to those places relatively quickly. Click the "Run" button to start the simulation. See below for more information about the model. 
+                            This app makes it possible to visualize the way different factors affect the spread of diseases like COVID-19. It is based on a mathematical model which is described in more detail below. The "Infection Distribution" chart shows the percentage of people in each location who are sick at a given point in time (the redder the square, the more sick people). The other grid shows how population density varies across space (darker squares can be thought of like cities, while lighter squares represent more sparsely populated areas). Since there is more traffic through high-population areas, infections tend to spread to those places relatively quickly. Click the "Run" button to start the simulation, which displays in real time below. 
                             <br>
                             </br>
                             <br>
@@ -321,37 +322,100 @@ export default function Home() {
       </div>
       </div>
       <p className="title is-4">
-                            About the Model
+                            Effective transmission rate
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                        </p>
+                        
+                        <p className="subtitle is-6">
+                          Current value: {state.alpha.toFixed(1)} 
+                          <br>
+                            </br>
+                        
+                          
+                          <a className="button is-black is-small"
+  style={styles.space}
+  onClick={() => dispatch({ type: "increase" })}
+    >
+      <span>+</span>
+    </a>
+    <a className="button is-black is-small"
+  style={styles.space}
+  onClick={() => dispatch({ type: "decrease" })}
+    >
+      <span>-</span>
+    </a>
                         </p>
                         <p>
-
+                          The effective transmission rate measures how many people a typical infected person will infect in a given period of time. The effective transmission rate depends on the type of disease, but it can also be changed by human intervention. For example, if people stay home when they get sick, then this may decrease the number of other people they infect. The buttons above can be used to increase or decrease the effective transmission rate in this model. 
+                          <br>
+                            </br>
+                            <br>
+                            </br>
+                        </p>
+                        <p className="title is-4">
+                            Recovery rate
+                            <br>
+                            </br>
+                            <br>
+                            </br>
+                        </p>
+                        
+                        <p className="subtitle is-6">
+                          Current value: {state.beta.toFixed(1)} 
+                          <br>
+                            </br>
+                        
+                          
+                          <a className="button is-black is-small"
+  style={styles.space}
+  onClick={() => dispatch({ type: "increasebeta" })}
+    >
+      <span>+</span>
+    </a>
+    <a className="button is-black is-small"
+  style={styles.space}
+  onClick={() => dispatch({ type: "decreasebeta" })}
+    >
+      <span>-</span>
+    </a>
                         </p>
                         <p>
-                            How does a disease like COVID-19 spread? To answer this question, we first need to understand how people move from place to place. 
+                          The recovery rate measures how quickly people recuperate from the disease. The recovery rate might change, for example, if people get access to better medical care. Click the buttons above to increase or decrease the recovery rate for this model. 
+                          <br>
+                            </br>
+                            <br>
+                            </br>
+                        </p>
+      <p className="title is-4">
+                            More about this Model
+                        </p>
+                        <p>
+                
+                        </p>
+                        <p>
+                            How does a disease like COVID-19 spread? To answer this question, we need to understand how people move from place to place. In the past, mathematical epidemiologists have tried to understand human mobility by using the diffusion model from physics. The diffusion model essentially describes a person or object which moves by taking steps that are small, independent and random. However, it has been known for a long time that this model does not give a realistic way to describe the spread of epidemics, because the way people move is more complicated. 
                             <br>
                             </br>
                             <br>
                             </br>
-                            In the past, mathematical epidemiologists have tried to understand human mobility by using the diffusion model from physics. The diffusion model essentially describes a particle that moves by taking large numbers of small, and independent, random steps. However, it has been known for a long time that this model does not give a realistic way to describe the spread of epidemics, because the way people move is more complicated. 
+                            To develop a better model of human mobility, Dirk Brockmann (then at Northwestern University) and colleagues <a href="http://rocs.northwestern.edu/research/wgstory.html">analyzed data from a variety of sources</a>. This website is based on <a href="https://ul.qucosa.de/api/qucosa%3A13918/attachment/ATT-0/">an early mathematical model they created</a> to capture the relationships they uncovered in the data. Their model incorporates the idea that human mobility includes both short trips (i.e., a few miles or less) along with occasional long-distance trips (such as plane trips between continents). The model also assumes that locations with higher population density tend to be visited more often than low-population areas. Their analysis of different data sources allowed them to quantify these ideas precisely. Since their model was first created, <a href="https://www.aimsciences.org/article/doi/10.3934/eect.2013.2.173">its mathematical properties have been further analyzed</a> and <a href="https://rocs.hu-berlin.de">more sophisticated models</a> have been created as well. 
                             <br>
                             </br>
                             <br>
                             </br>
-                            To develop a better model of human mobility, Dirk Brockmann (then at Northwestern University) and colleagues <a href="http://rocs.northwestern.edu/research/wgstory.html">analyzed data from a variety of sources,</a> including the circulation of dollar bills across the US. This website is based on an early mathematical model they created which captures these insights. Their incorporates the idea that human mobility includes both short trips (i.e., a few miles or less) along with occasional long-distance trips (such as plane trips between continents). It also assumes that locations with higher population density tend to be visited more often than low-population areas. Their analysis of money circulation and other data sources allowed them to quantify these ideas precisely and create the <a href="https://ul.qucosa.de/api/qucosa%3A13918/attachment/ATT-0/">system of differential equations upon which this website is based</a>. Since the model was first created, <a href="https://www.aimsciences.org/article/doi/10.3934/eect.2013.2.173">its mathematical properties have been further analyzed</a> and <a href="https://rocs.hu-berlin.de">more sophisticated models</a> have been created as well. 
+                            An important consequence of the model is that diseases tend to spread to high-population areas more quickly than low-population areas. This app offers a simple way to visualize this process. The user can also see how the results change when the effective transmission rate and recovery rate are altered (if the former becomes smaller than the latter, the disease will die out and the epidemic will be stopped!). As epidemiological models grow more sophisticated, one can hope that this will help to control the spread of future disease outbreaks, offering precise forecasts that can guide policy and save lives. 
                             <br>
                             </br>
                             <br>
                             </br>
-                            An important consequence of the model, which can be seen in the simulation above, is that diseases tend to spread to high population areas relatively soon after an initial outbreak, while low-popuation areas may see the disease spread more slowly, even if they are close to the initial outbreak. This website offers a simple way to visualize this process. As epidemiological models grow more sophisticated, one can hope that this will help to control the spread of future disease outbreaks and offer precise forecasts that can help to guide policy. 
+                            {/* This model admittedly gives a <i>highly</i> schematized representation of how a pandemic would spread across the surface of the earth. But a truly realistic model would require a supercomputer to solve, as well as significant time spent on data gathering and programming. Nonetheless, this app helps illustrate the logic behind more sophisticated models, by providing a simple visual representation of spatial infection dynamics. 
                             <br>
                             </br>
                             <br>
-                            </br>
-                            This model admittedly gives a <i>highly</i> schematized representation of how a pandemic would spread across the surface of the earth. But a truly realistic model would require a supercomputer to solve, as well as significant time spent on data gathering and programming. Nonetheless, this app helps illustrate the logic behind more sophisticated models, by providing a simple visual representation of spatial infection dynamics. 
-                            <br>
-                            </br>
-                            <br>
-                            </br>
+                            </br> */}
                         </p>
 
                         <p className="title is-4">
@@ -361,12 +425,13 @@ export default function Home() {
 
                         </p>
                         <p>
-                            This is a single-page application created with ReactJS. I made the animation with the react-spring package, created the grids with react-heatmap-grid, and used mathJS to write the equation solver. (The solver is very simple; it relies on Euler's method to solve the system of nonlinear ordinary differential equations.) 
+                            This is a single-page application created with ReactJS. I made the grids with react-heatmap-grid, and used mathJS to write the equation solver, which applies Euler's method to a system of 400 nonlinear differential equations. The app also uses React hooks to update the page in real time while the equations are being solved. 
                             <br>
                             </br>
                             <br>
                             </br>
                         </p>
+                        
           </div>
           <Footer />
           </div>
@@ -481,6 +546,14 @@ function reducer(state, action) {
       return { ...state, isRunning: false, time: 0, infections: initial, message: 'Current state (click the "Run" button above to start the simulation)', percentSick: 100*c[0][0]/totalPop};
     case "iterate":
       return { ...state, time: state.time + 1, infections: euler(state), percentSick: calculatePercent(state)};
+    case "increase":
+      return {...state, alpha: (state.alpha < 4) * (state.alpha + 0.1) + (state.alpha >= 4) * 4 };
+    case "decrease":
+      return {...state, alpha: (state.alpha > 0.1) * (state.alpha - 0.1) };
+    case "increasebeta":
+      return {...state, beta: (state.beta < 4) * (state.beta + 0.1) + (state.beta >= 4) * 4 };
+    case "decreasebeta":
+      return {...state, beta: (state.beta > 0.1) * (state.beta - 0.1) };
     default:
       throw new Error();
   }

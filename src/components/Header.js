@@ -12,7 +12,7 @@ const styles = {
   },
 }
 
-function Header({currentPage, handlePageChange }) {
+function Header() {
     return (
         <div>
         <section className="hero notification is-black">

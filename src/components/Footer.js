@@ -15,12 +15,12 @@ const styles = {
       }
   }
 
-function Footer ({currentPage, handlePageChange }) {
+function Footer () {
     return (
         <div className="notification is-black">
         <footer className="footer notification is-black has-text-centered">
 
-              <p>This page was created with ReactJS by <a href="https://sthompsonchicago.github.io/react-portfolio/">Stephen Thompson.</a> </p>
+              <p>This page was created with ReactJS by <a href="https://sthompsonchicago.github.io/react-portfolio/">Stephen Thompson</a>. </p>
 
          
 
