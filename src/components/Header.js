@@ -1,12 +1,23 @@
 import React from 'react';
 
-function Header() {
+const styles = {
+  hov: {
+    cursor: 'pointer',
+  },
+  right: {
+    float: "right",
+  },
+  space: {
+    margin:"5px",
+  },
+}
+
+function Header({currentPage, handlePageChange }) {
     return (
         <div>
         <section className="hero notification is-black">
-            <div className="hero-head">
-  </div>
-            <div className="hero-body">
+            
+        <div className="hero-body">
                 <article className="media">
                     <div className="media-left">
                     <figure className="image is-64x64"
@@ -25,6 +36,26 @@ function Header() {
                 </article>
                 </div>
         </section>
+        <div className="hero-foot">
+            <header className="navbar" style={styles.right}>
+
+<a className="button is-black"
+  style={styles.space}
+    href="#simulate"
+    onClick={() => handlePageChange('Simulate')}
+    >
+      <span>Run</span>
+    </a>
+    <a className="button is-black"
+    style={styles.space}
+    href="#stop"
+    onClick={() => handlePageChange('Home')}
+    >
+      <span>Stop</span>
+    </a>
+
+</header>
+  </div>
         </div>
     );
 }
