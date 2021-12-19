@@ -1,8 +1,9 @@
 import { useReducer, useEffect, useRef } from 'react';
-import { HeatMapGrid } from "react-grid-heatmap";
-import { Slider } from '@material-ui/core';
+import { HeatMapGrid } from 'react-grid-heatmap';
 import Header from './Header';
 import Footer from './Footer';
+
+import Slider, { createSliderWithTooltip } from 'rc-slider';
 
 const math = require('mathjs');
 
@@ -26,12 +27,6 @@ const N = n * n;
 
 // Superdiffusion parameter
 const mu = 0.6;
-
-// Transmission rate
-const alpha = 0.5;
-
-// Recovery rate
-const beta = 0.1;
 
 // Step size for ODE solver
 const h = 0.01;
@@ -138,7 +133,9 @@ const initialState = {
   periods: 0,
   population: c,
   message: 'Current state (click the "Run" button above to start the simulation)',
-  percentSick: 100*c[0][0]/totalPop
+  percentSick: 100*c[0][0]/totalPop,
+  alpha: 0.5,
+  beta: 0.1
 }
 
 export default function Home() {
@@ -164,7 +161,7 @@ export default function Home() {
     if (!state.isRunning) {
       return;
     }
-    idRef.current = setInterval(() => dispatch({ type: "iterate" }), 500);
+    idRef.current = setInterval(() => dispatch({ type: "iterate" }), 300);
     return () => {
       clearInterval(idRef.current);
       idRef.current = 0;
@@ -422,8 +419,8 @@ function createMatrix() {
   m = math.multiply(D, a);
 }
 
-function infect(x) {
-  return alpha * x * (1 - x) - beta * x;
+function infect(x, state) {
+  return state.alpha * x * (1 - x) - state.beta * x;
 }
 
 function euler(state) {
@@ -446,7 +443,7 @@ function euler(state) {
       let v = math.multiply(m, last);
 
       for (let k = 0; k < N; k++) {
-          let val = u.subset(math.index(k, t)) + h * (infect(u.subset(math.index(k, t))) + v.subset(math.index(k, 0)));
+          let val = u.subset(math.index(k, t)) + h * (infect(u.subset(math.index(k, t)), state) + v.subset(math.index(k, 0)));
 
           u.subset(math.index(k, t + 1), val);
 
