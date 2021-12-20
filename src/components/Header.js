@@ -15,7 +15,7 @@ const styles = {
 function Header() {
     return (
         <div>
-        <section className="hero notification is-black is-size-7-mobile">
+        <section className="hero notification is-black is-size-6-mobile">
             
         <div className="hero-body">
                 <article className="media">
@@ -26,10 +26,10 @@ function Header() {
       </figure>                
       </div>
       <div className="media-content">
-                <p className="title is-size-7-mobile">
+                <p className="title is-size-6-mobile">
                     Epidemic Simulator
                 </p>
-                <p className="subtitle is-size-7-mobile">
+                <p className="subtitle is-size-6-mobile">
                     A tool for visualizing spatial disease dynamics
                 </p>
 </div>
