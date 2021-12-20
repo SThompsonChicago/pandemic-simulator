@@ -209,17 +209,17 @@ export default function Home() {
 
 </header>
       <div className='box'>
-        <p className="title is-4">
+        <p className="title is-4 is-size-7-mobile">
                             What is this and how does it work?
                         </p>
                         <p>
-                            This app makes it possible to visualize the way different factors affect the spread of diseases like COVID-19. It is based on a mathematical model which is described in more detail below. The "Infection Distribution" chart shows the percentage of people in each location who are sick at a given point in time (the redder the square, the more sick people). The other grid shows how population density varies across space (darker squares can be thought of like cities, while lighter squares represent more sparsely populated areas). Since there is more traffic through high-population areas, infections tend to spread to those places relatively quickly. Click the "Run" button to start the simulation, which displays in real time below. 
+                            When the user clicks the "Run" button, this app displays an animation describing an epidemic spreading over a geographic space. The user can also change infection parameters below. This makes it possible to visualize the way different factors affect the spread of diseases like COVID-19. It is based on a mathematical model which is described in more detail below. The "Infection Distribution" chart shows the percentage of people in each location who are sick at a given point in time (the redder the square, the more sick people). The other grid shows how population density varies across space (darker squares can be thought of like cities, while lighter squares represent more sparsely populated areas). Since there is more traffic through high-population areas, infections tend to spread to those places relatively quickly. Click the "Run" button to start the simulation, which displays in real time below. 
                             <br>
                             </br>
                             <br>
                             </br>
                         </p>
-                        <p className="title is-4">
+                        <p className="title is-4 is-size-7-mobile">
                             {state.message}
                             <br>
                             </br>
@@ -227,14 +227,14 @@ export default function Home() {
                             </br>
                         </p>
                         
-                        <p className="subtitle is-6">
+                        <p className="subtitle is-6 is-size-7-mobile">
                           Number of days after initial outbreak: {state.time}
                         </p>
                         <div className="columns">
         <div className="column">
                         
                    <div className="box">   
-                   <p className="title is-6 has-text-centered">
+                   <p className="title is-6 has-text-centered is-size-7-mobile">
                      Infection Distribution
                   </p>
 
@@ -270,7 +270,7 @@ export default function Home() {
 
 
 
-<p className="subtitle is-6 has-text-centered">
+<p className="subtitle is-6 has-text-centered is-size-7-mobile">
                      Red = 100% infection rate, Blue = 0% infection rate
                   </p>
             </div>  
@@ -282,7 +282,7 @@ export default function Home() {
             
                         
                    <div className="box">   
-                   <p className="title is-6 has-text-centered">
+                   <p className="title is-6 has-text-centered is-size-7-mobile">
                      Population Distribution
                   </p>
     
@@ -314,14 +314,14 @@ export default function Home() {
         // square
       />
 
-<p className="subtitle is-6 has-text-centered">
+<p className="subtitle is-6 has-text-centered is-size-7-mobile">
                      Light = low population density, Dark = high population density
                   </p>
       </div>
       
       </div>
       </div>
-      <p className="title is-4">
+      <p className="title is-4 is-size-7-mobile">
                             Effective transmission rate
                             <br>
                             </br>
@@ -329,7 +329,7 @@ export default function Home() {
                             </br>
                         </p>
                         
-                        <p className="subtitle is-6">
+                        <p className="subtitle is-6 is-size-7-mobile">
                           Current value: {state.alpha.toFixed(1)} 
                           <br>
                             </br>
@@ -355,7 +355,7 @@ export default function Home() {
                             <br>
                             </br>
                         </p>
-                        <p className="title is-4">
+                        <p className="title is-4 is-size-7-mobile">
                             Recovery rate
                             <br>
                             </br>
@@ -363,7 +363,7 @@ export default function Home() {
                             </br>
                         </p>
                         
-                        <p className="subtitle is-6">
+                        <p className="subtitle is-6 is-size-7-mobile">
                           Current value: {state.beta.toFixed(1)} 
                           <br>
                             </br>
@@ -389,7 +389,7 @@ export default function Home() {
                             <br>
                             </br>
                         </p>
-      <p className="title is-4">
+      <p className="title is-4 is-size-7-mobile">
                             More about this Model
                         </p>
                         <p>
@@ -418,7 +418,7 @@ export default function Home() {
                             </br> */}
                         </p>
 
-                        <p className="title is-4">
+                        <p className="title is-4 is-size-7-mobile">
                             How This App Was Created
                         </p>
                         <p>
