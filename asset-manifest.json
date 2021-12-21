@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/pandemic-simulator/static/js/main.f857aef0.js",
+    "main.js": "/pandemic-simulator/static/js/main.de069312.js",
     "index.html": "/pandemic-simulator/index.html",
-    "main.f857aef0.js.map": "/pandemic-simulator/static/js/main.f857aef0.js.map"
+    "main.de069312.js.map": "/pandemic-simulator/static/js/main.de069312.js.map"
   },
   "entrypoints": [
-    "static/js/main.f857aef0.js"
+    "static/js/main.de069312.js"
   ]
 }
