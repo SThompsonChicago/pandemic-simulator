@@ -842,7 +842,7 @@ export default function Home() {
                             </br>
                         </p>
                         <p className="subtitle is-6 is-size-6-mobile">
-                          Current value: {state.alpha / state.beta} 
+                          Current value: {(state.alpha / state.beta).toFixed(2)} 
                           <br>
                             </br>
                         </p>
