@@ -14,6 +14,8 @@
   * [Deployment](#deployment)
 
   * [Functionality](#functionality)
+  
+  * [Classical Mode](#classical)
 
   * [Contact](#contact)
 
@@ -40,6 +42,12 @@
   At the bottom of the page, there is additional information about the science behind the model. 
 
   ![More information about the model.](/assets/images/four.png) 
+
+  ## Classical Mode
+
+  This application also features a "classical mode", in which the population density is the same everywhere, and human mobility is described by a simple diffusion process. This version of the model is based on frameworks that epidemiologists used more in the past, but still are used in some applications today. In classical mode, the simulation displays traveling waves similar to those sometimes observed in chemical reaction-diffusion systems. 
+
+  ![A traveling wave solution to the model.](/assets/images/seven.png)
 
   ## Questions
 
