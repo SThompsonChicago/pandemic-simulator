@@ -17,6 +17,12 @@ const styles = {
   space: {
     margin:"5px",
   },
+  red: {
+    backgroundColor:'black',
+    color:'white',
+    margin:"3px",
+    fontWeight:1000,
+  },
 }
 
 // Number of rows in the grid
@@ -37,29 +43,13 @@ const D = 0.005;
 // Number of time intervals
 const periods = 4;
 
+// Create matrices that will be used to build the model
 let a = math.zeros(N, N);
 let m = math.zeros(N, N);
 let aDiffusion = math.zeros(N, N);
 let mDiffusion = math.zeros(N, N);
 
-// let c = new Array(n);
-// for (let i = 0; i < n; i++){
-//     c[i] = new Array(n).fill(0);
-// }
-
-
-// for (let i = 0; i < n; i++) {
-//   for (let j = 0; j < n; j++) {
-//     c[i][j] = (j !== 0 && j !== n - 1) * 0.3 * Math.random() + (0.5 + 0.5 * Math.random()) * (j === 0 || j === n - 1);
-//     let rando = Math.random();
-//     let rando2 = Math.random();
-//     if(rando > 0.45 && rando2 > 0.45)
-//     c[i][j] = 0.4 * (rando + rando2);
-//   }
-// }
-
-
-
+//Default population distribution
 let c = [[0.5755951483871738, 0.049671816036299, 0.13992873258806304, 0.08764762633505141, 0.5814739892431717, 0.1780979952155575, 0.29058792293984753, 0.5653063958923548, 0.2996236182681453, 0.025299908300829222, 0.2966463154175256, 0.2812246362642324, 0.08863444873703631, 0.3945360346138399, 0.14711649999329732, 0.12966644124191348, 0.231638995073393, 0.16832621579711932, 0.5414569718132451, 0.9444525515132772],
 [0.6930511302809681, 0.7028044999703095, 0.4066808150821862, 0.1876285084379122, 0.06753383635939111, 0.19619869974545773, 0.2763495452685704, 0.28736991416916985, 0.6744472911226111, 0.1326435412845072, 0.01614603183941543, 0.22317963184492243, 0.1256750823577049, 0.6409222788445349, 0.5334025995115509, 0.5465484082659168, 0.11480685130681309, 0.49171040211784167, 0.09080763405974754, 0.6353578089211926],
 [0.9173551880697326, 0.23356714684797247, 0.6419158869516552, 0.04386833111465405, 0.5447727193371974, 0.11151267406814515, 0.038581294756218985, 0.2676215555011712, 0.03206691268710753, 0.08159593218397172, 0.12504657869015098, 0.043088003733687395, 0.22013635813932456, 0.12809043998761308, 0.4685461890177982, 0.23434489054890906, 0.6605092355364194, 0.2605306362095185, 0.07712472468929743, 0.9329009845156788],
@@ -81,6 +71,7 @@ let c = [[0.5755951483871738, 0.049671816036299, 0.13992873258806304, 0.08764762
 [0.8489873080326793, 0.189796593920934, 0.03268685364241173, 0.06535372126777805, 0.2987225928652199, 0.0965633617148609, 0.2509607227719607, 0.02863576624106927, 0.0034511689768313533, 0.5241424381082819, 0.42174519054634696, 0.1298906764291743, 0.0373411959008535, 0.05528399249876657, 0.22800801118139238, 0.6967350781546318, 0.1957866879758246, 0.668062122798861, 0.2803166176284209, 0.6999502124926856],
 [0.7482569947741431, 0.2529971769886013, 0.6977383102630518, 0.066877843087, 0.2390909424802069, 0.29519097947553874, 0.09364111713125345, 0.027786537315214965, 0.23931673173604906, 0.051073927684144094, 0.17440332676586248, 0.2652028115730563, 0.2774735584392421, 0.11914520636338974, 0.036409115397076676, 0.12757036496649277, 0.10073080788660305, 0.10592639975611663, 0.4380443948800962, 0.7881570920854284]];
 
+// Initial infection distribution displayed when user loads page
 let demo = [
   [
       0.19969866766868052,
@@ -524,6 +515,7 @@ let demo = [
   ]
 ];
 
+// Calculate total population
 let totalPop = 0;
 
 for (let i = 0; i < n; i++) {
@@ -532,40 +524,25 @@ for (let i = 0; i < n; i++) {
   }
 }
 
+// Create array to hold inital infection distribution
 let initial = new Array(n);
 for (let i = 0; i < n; i++){
     initial[i] = new Array(N).fill(0);
 }
 
+// Create array to hold current model state
 let cur = new Array(n);
 for (let i = 0; i < n; i++){
     cur[i] = new Array(n).fill(0);
 }
 
-initial[3][4] = 1;
+// Set default location of initial outbreak
+initial[16][4] = 1;
 
 // Create an N x periods matrix to hold solution to ODE system
 let u = math.zeros(N, periods);
 
-// Population distribution
-//const c = math.matrix([[300, 50, 50, 400], [300, 10, 10, 200], [50, 10, 10, 400], [100, 10, 50, 50]]);
-//let c = math.ones(n, n);
-
-// c.subset(math.index(0,0), 0.1);
-// c.subset(math.index(n - 1,0), 0.1);
-// c.subset(math.index(0, n - 1), 0.1);
-
-// for (let i = 0; i < n; i++) {
-//   for (let j = 0; j < n; j++) {
-//     let val = Math.random();
-//     c.subset(math.index(i,j), val);
-    
-//   }
-// }
-
-
-
-
+// Inputs for heatmap grid
 const xLabels = new Array(n).fill(0).map((_, i) => `${i+1}`);
 const yLabels = new Array(n).fill(0).map((_, i) => `${i+1}`).reverse();
 
@@ -576,6 +553,8 @@ const data = new Array(yLabels.length)
       .fill(0)
   );
 
+
+// Initial state
 const initialState = {
   isRunning: false,
   infections: demo,
@@ -592,23 +571,21 @@ const initialState = {
 
 export default function Home() {
 
-
+// Use reducer to update state
   const [state, dispatch] = useReducer(reducer, initialState);
   const idRef = useRef(0);
 
-
+// Function to give infection rate at a given location
   const infectionDist = (_x, _y) => {
     return state.infections[_x][_y];
   } 
 
+  // Function to give population density at a given location
   const populationDist = (_x, _y) => {
     return state.nonlocal * state.population[_x][_y] + (!state.nonlocal) * 0.2;
   }
 
-  const showPercent = () => state.percentSick;
-
-  const runner = () => state.time;
-
+  // Effect Hook updates model state based on user inputs ("iterate" is used for nonlocal mode and "iteratediffusion" is used for classical model)
   useEffect(() => {
     if (!state.isRunning) {
       return;
@@ -630,36 +607,39 @@ export default function Home() {
 
 
   return (
+// Header contains "Run", "Stop" and "Reset" buttons
     <div className="notification is-black">
       <Header />
       <header className="navbar" style={styles.right}>
 
-<a className="button is-black"
-  style={styles.space}
+<a className="button"
+  style={styles.red}
   onClick={() => dispatch({ type: "run" })}
     >
-      <span>Run</span>
+      <span>RUN</span>
     </a>
-    <a className="button is-black"
-    style={styles.space}
+    <a className="button"
+    style={styles.red}
     onClick={() => dispatch({ type: "stop" })}
     >
-      <span>Stop</span>
+      <span>STOP</span>
     </a>
-    <a className="button is-black"
-    style={styles.space}
+    <a className="button"
+    style={styles.red}
     onClick={() => dispatch({ type: "reset" })}
     >
-      <span>Reset</span>
+      <span>RESET</span>
     </a>
 
 </header>
+
+{/* Body of homepage */}
       <div className='box'>
         <p className="title is-4 is-hidden-mobile">
                             What is this?
                         </p>
                         <p>
-                            This web application uses a modern epidemiological model to help the user visualize the way contagious diseases spread. See below for more information about the model and options for changing different inputs. The "Infection Distribution" chart shows the percentage of people in each location who are sick—the redder the square, the higher the percentage of people who are infected—and updates in real time as the app calculates the solution to the model. Click the "Run" button to start the simulation. 
+                            This web application uses a modern epidemiological model to help the user visualize the way contagious diseases spread. See below for more information about the model and options for changing different inputs. The "Infection Distribution" chart shows the percentage of people in each location who are sick—the redder the square, the higher the percentage of people who are infected—and updates in real time as the app calculates the solution to the model. Click the "Run" button to start the simulation. You can also check out this <a href="https://www.youtube.com/channel/UChbT8SgoyxynvXKg3kk_3Dg">video demonstration</a>. 
                             <br>
                             </br>
                             <br>
@@ -689,11 +669,7 @@ export default function Home() {
         data={data}
         xLabels={xLabels}
         yLabels={yLabels}
-        squares
-        // Reder cell with tooltip
-        cellRender={(x, y, value) => (
-          <div title={`Pos(${x}, ${y}) = ${value}`}></div>
-        )}
+        // square
         xLabelsStyle={() => ({
           fontSize: ".65rem",
           textTransform: "uppercase",
@@ -710,8 +686,6 @@ export default function Home() {
         cellHeight="1rem"
         xLabelsPos="bottom"
         onClick={(x, y) => null}
-        // yLabelsPos="right"
-        // square
       />
 
 
@@ -737,9 +711,6 @@ export default function Home() {
         xLabels={xLabels}
         yLabels={yLabels}
         // Reder cell with tooltip
-        cellRender={(x, y, value) => (
-          <div title={`Pos(${x}, ${y}) = ${value}`}></div>
-        )}
         xLabelsStyle={() => ({
           fontSize: ".65rem",
           textTransform: "uppercase",
@@ -795,7 +766,7 @@ export default function Home() {
     </a>
                         </p>
                         <p>
-                          The effective transmission rate measures how many people a typical infected person will infect in a given period of time. The value of this parameter will vary with the type of disease, but it can also be changed by human decisions. For example, if people stay home when they get sick, then this may decrease the effective transmission rate. The buttons above can be used to change the transmission rate in this model. 
+                          The effective transmission rate measures how many people a typical infected person will infect in a given period of time. The value of this parameter will vary with the type of disease, but it can also be changed by human decisions. For example, if people stay home when they get sick, then this may decrease the effective transmission rate. The plus and minus buttons above can be used to change the transmission rate in this model. 
                           <br>
                             </br>
                             <br>
@@ -828,7 +799,7 @@ export default function Home() {
     </a>
                         </p>
                         <p>
-                          The recovery rate measures how quickly people recuperate from the disease. The recovery rate might increase if, for example, people get access to better medical care. Click the buttons above to increase or decrease the recovery rate for this model. 
+                          The recovery rate measures how quickly people recuperate from the disease. The recovery rate might increase if, for example, people get access to better medical care. Click the plus and minus buttons above to increase or decrease the recovery rate for this model. 
                           <br>
                             </br>
                             <br>
@@ -847,7 +818,22 @@ export default function Home() {
                             </br>
                         </p>
                         <p>
-                          The basic reproduction number, also sometimes referred to as R<sub>0</sub>, is the ratio of the effective transmission rate to the recovery rate. You can verify by experimenting with the other parameter values that the disease will die out if the basic reproduction number is less than one. For example, click "Reset", set the parameters at their default values (so the effective transmission number is 7 and the recovery rate is 0.4), click "Run", and let the simulation go for 50 or so "days". Then click "Stop", and lower the effective transmission rate to 0.3 while keeping the recovery rate at 0.4. Then click "Run" to continue the simulation with the new parameter values. You will see that the epidemic gradually disappears.
+                          The basic reproduction number, also sometimes referred to as R<sub>0</sub>, is the ratio of the effective transmission rate to the recovery rate. Thus the user cannot set the basic reproduction number directly, but can change it by varying the two parameter values (the effective transmission rate and the recovery rate) above. One can verify by experimenting with different values that the disease will die out if the basic reproduction number is less than one, but will spread if the number is greater than one, as the science predicts. This provides a simple way to understand how policy interventions can affect the spread of a disease. 
+                          <br>
+                            </br>
+                            <br>
+                            </br>
+                          </p>
+                          <p className="title is-4 is-size-6-mobile">
+                            An example with "social distancing"
+                        </p>
+                        <p>
+                          The user can gain a better understanding of the model by implementing the following example. First, click "Reset" (in the upper right-hand corner of the page), and set the parameters at their default values (so the effective transmission rate should be 7, the recovery rate should be 0.4, giving us a basic reproduction number of 17.50). Then click "Run", and let the simulation go for 60 or so "days". (Note that the number of "days" in the model is listed above the Infection Distribution chart.) Although the disease appears to spread slowly at first, one can see by watching the Infection Distribution chart that after about 40 "days" it gains steam and starts to spread more rapidly, consistent the nonlinear dynamics observed in real-world epidemics. 
+                          <br>
+                            </br>
+                            <br>
+                            </br>
+                          Next, click "Stop", and lower the effective transmission rate to 0.3 while keeping the recovery rate at 0.4. This lower value for the effective transmission rate could be thought of as the result of an aggressive "social distancing" policy. Because the effective transmission rate is now 0.3 and the recovery rate is 0.4, the basic reproduction number is 0.75. Now click "Run" to continue the simulation with the new parameter values. One can see, by watching the Infection Distribution chart, that the disease gradually dies out. Thus the social distancing policy stops the epidemic. 
                           <br>
                             </br>
                             <br>
@@ -909,7 +895,7 @@ export default function Home() {
     </a>
                         </p>
                         <p>
-                          The outbreak location gives the initial state of the model. Click the buttons above to reset the simulation with a random outbreak location or restore the default outbreak location, and then click the "Run" button at the top of the page to see the updated infection dynamics. 
+                          The outbreak location gives the initial state of the model; it is the place where the epidemic begins. Click the buttons above to reset the simulation with a random outbreak location or restore the default outbreak location, and then click the "Run" button at the top of the page to see the updated infection dynamics. 
                           <br>
                             </br>
                             <br>
@@ -962,7 +948,7 @@ export default function Home() {
                             </br>
                             <br>
                             </br>
-                            To develop a better model of human mobility patterns, Dirk Brockmann (then at Northwestern University) and colleagues <a href="http://rocs.northwestern.edu/research/wgstory.html">analyzed data from a variety of sources</a>. The nonlocal mode of this web application is based on <a href="https://ul.qucosa.de/api/qucosa%3A13918/attachment/ATT-0/">one of the simpler mathematical models they created</a> to capture the relationships they uncovered in the data. The model incorporates the idea that human mobility includes both short trips (i.e., a mile or less) along with occasional long-distance travel (such as airline flights). It also assumes that locations with higher population density tend to be visited more often than low-population areas. Brockmann's analysis of different data sources allowed him to quantify these ideas precisely. This model has <a href="https://www.aimsciences.org/article/doi/10.3934/eect.2013.2.173">has some interesting mathematical properties</a>, and <a href="https://rocs.hu-berlin.de">more sophisticated models</a> have been created as well. 
+                            To develop a better model of human mobility patterns, Dirk Brockmann (then at Northwestern University) and colleagues <a href="http://rocs.northwestern.edu/research/wgstory.html">analyzed data from a variety of sources</a>. The nonlocal mode of this web application is based on <a href="https://ul.qucosa.de/api/qucosa%3A13918/attachment/ATT-0/">one of the simpler mathematical models they created</a> to capture the relationships they uncovered in the data. The model incorporates the idea that human mobility includes both short trips (i.e., a mile or less) along with occasional long-distance travel (such as airline flights). It also assumes that locations with higher population density tend to be visited more often than low-population areas. Brockmann's analysis of different data sources allowed him to quantify these ideas precisely. This model has some interesting mathematical properties (I co-authored <a href="https://www.aimsciences.org/article/doi/10.3934/eect.2013.2.173">a paper about this</a> a while ago), and <a href="https://rocs.hu-berlin.de">more sophisticated models</a> have been created as well. 
                             <br>
                             </br>
                             <br>
@@ -1261,11 +1247,11 @@ function reducer(state, action) {
     case "increase":
       return {...state, alpha: (state.alpha < 8) * (state.alpha + 0.1) + (state.alpha >= 8) * 8  };
     case "decrease":
-      return {...state, alpha: (state.alpha > 0.1) * (state.alpha - 0.1)  };
+      return {...state, alpha: (state.alpha > 0.1) * (state.alpha - 0.1) + (state.alpha <= 0.1) * 0.1 };
     case "increasebeta":
       return {...state, beta: (state.beta < 8) * (state.beta + 0.1) + (state.beta >= 8) * 8  };
     case "decreasebeta":
-      return {...state, beta: (state.beta > 0.1) * (state.beta - 0.1)  };
+      return {...state, beta: (state.beta > 0.1) * (state.beta - 0.1) + (state.beta <= 0.1) * 0.1};
     case "randompopulation":
         return {...state, isRunning: false, time: 0, infections: initial, message: 'Current state (click the "Run" button above to start the simulation)', percentSick: 100*c[0][0]/totalPop, population: randomPop(), nonlocal: true };
     case "restorepopulation":

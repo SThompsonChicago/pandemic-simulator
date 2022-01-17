@@ -1,33 +1,24 @@
 # Epidemic Simulator
 
+  Stephen Thompson (stephen.thompson@umbc.edu)
+
+  The Epidemic Simulator is a web application that allows the user to experiment with a model showing the spatial spread of a contagious disease. The model is based on work I published with Tom Seidman: "Approximation of a semigroup model of anomalous diffusion in a bounded set", published in Evolution Equations and Control Theory 2(1). 
+
+  ### Links
+
+  A link to the deployed application can be found at [https://sthompsonchicago.github.io/pandemic-simulator/](https://sthompsonchicago.github.io/pandemic-simulator/). 
+
+  Here is a quick video demonstration: [https://www.youtube.com/watch?v=zGMR58tAFeY](https://www.youtube.com/watch?v=zGMR58tAFeY).
+
+  Here is another video demonstrating the classical mode: [https://www.youtube.com/watch?v=vMCtiwwBAIQ](https://www.youtube.com/watch?v=vMCtiwwBAIQ).
 
   ## Description
 
-  This web application makes it possible to visualize the way contagious diseases spread, and to better understand how policy interventions can stop epidemics. It relies on a modern epidemiological model, and the user has options to vary different inputs (the effective transmission rate, the recovery rate, the population distribution, the outbreak location and the mobility type). Some inputs will lead to rapid infection propagation, while others will cause the disease to die out. Although the model is relatively simple, it reproduces important qualitative features of real-world epidemics and makes it possible to understand the logic behind more sophisticated models. 
+  This simulator is a web application that makes it possible to visualize the way contagious diseases spread, and to better understand how policy interventions can stop epidemics. It relies on a modern epidemiological model, and the user has options to vary different inputs (the effective transmission rate, the recovery rate, the population distribution, the outbreak location and the mobility type). Some inputs will lead to rapid infection propagation, while others will cause the disease to die out. Although the model is relatively simple, it reproduces important qualitative features of real-world epidemics and makes it possible to understand the logic behind more sophisticated models. 
   
   ![Epidemic model.](/assets/images/top.png)
 
   The app uses Euler's method to solve a system of 400 nonlinear differential equations, displays an animation describing the results, and uses ReactJS to update the animation in real time as the equations are being solved (thus minimizing user wait time). The user interface also includes some information and links explaining the science behind the model. 
-
-  ## Table of Contents
-
-  * [Deployment](#deployment)
-
-  * [Functionality](#functionality)
-  
-  * [Basic Reproduction Number](#basic-reproduction-number)
-
-  * [Population Distribution Function](#population-distribution-function)
-  
-  * [Classical Mode](#classical-mode)
-
-  * [Contact](#contact)
-
-  * [License](#license)
-
-  ### Deployment
-
-  A link to the deployed application can be found [here](https://sthompsonchicago.github.io/pandemic-simulator/). 
 
   ### Functionality
 
@@ -67,10 +58,6 @@
 
   ![A traveling wave solution to the model.](/assets/images/seven.png)
 
-  ### Questions
+  ### Contact
 
   My GitHub profile can be found [here](https://github.com/SThompsonChicago). You can contact me via email at s31@umbc.edu.
-
-  ### License
-
-    https://opensource.org/licenses/MIT

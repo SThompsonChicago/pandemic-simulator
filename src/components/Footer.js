@@ -20,7 +20,7 @@ function Footer () {
         <div className="notification is-black">
         <footer className="footer notification is-black has-text-centered">
 
-              <p>Created by <a href="https://sthompsonchicago.github.io/react-portfolio/">Stephen Thompson</a>. </p>
+              <p>Created by <a href="https://sgthompson.herokuapp.com/">Stephen Thompson</a>. </p>
 
          
 
