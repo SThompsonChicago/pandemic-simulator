@@ -8,34 +8,34 @@ const styles = {
     float: "right",
   },
   space: {
-    margin:"5px",
+    margin: "5px",
   },
 }
 
 function Header() {
-    return (
-        <div>
-        <section className="hero notification is-black is-size-6-mobile">
-            
+  return (
+    <div>
+      <section className="hero notification is-black is-size-6-mobile">
+
         <div className="hero-body">
-                <article className="media">
-                    <div className="media-left">
-                    <figure className="image is-64x64"
-                    >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Coronavirus._SARS-CoV-2.png" alt="Image" className="is-rounded"/>
-      </figure>                
-      </div>
-      <div className="media-content">
-                <p className="title is-size-6-mobile">
-                    Epidemic Simulator
-                </p>
-                <p className="subtitle is-size-6-mobile">
-                    A tool for visualizing spatial disease dynamics
-                </p>
-</div>
-                </article>
-                </div>
-        </section>
+          <article className="media">
+            <div className="media-left">
+              <figure className="image is-64x64"
+              >
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Coronavirus._SARS-CoV-2.png" alt="Image" className="is-rounded" />
+              </figure>
+            </div>
+            <div className="media-content">
+              <p className="title is-size-6-mobile">
+                Epidemic Simulator
+              </p>
+              <p className="subtitle is-size-6-mobile">
+                A tool for visualizing spatial disease dynamics
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
       {/*  <div className="hero-foot">
              <header className="navbar" style={styles.right}>
 
@@ -56,8 +56,8 @@ function Header() {
 
 </header> 
   </div>*/}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Header;
